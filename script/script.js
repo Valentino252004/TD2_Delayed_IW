@@ -8,10 +8,14 @@ let dropDownMunicipality = document.getElementById("commune-select");
 zipcodeInput.addEventListener("input", (e) => {
     if (regex.test(e.target.value)) {
         dropDownMunicipality.hidden = false;
+        document.getElementById("commune-label").hidden = false;
+        document.getElementById("sendForm").hidden = false;
         zipcode = e.target.value;
         apiMunicipality();
     }else{
         dropDownMunicipality.hidden = true;
+        document.getElementById("commune-label").hidden = true;
+        document.getElementById("sendForm").hidden = true;
     }
 })
 
