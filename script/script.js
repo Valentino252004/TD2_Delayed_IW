@@ -14,12 +14,14 @@ fetch(req)
     })
     .then(apiWeather => {
         document.getElementById("weatherResponse").innerHTML = 
-            `Weather for ${apiWeather["city"]["name"]}: <br>
-                Min Temperature: ${apiWeather["forecast"]["tmin"]} <br>
-                Max Temperature: ${apiWeather["forecast"]["tmax"]} <br>
-                Rain Probality: ${apiWeather["forecast"]["probarain"]} % <br>
-                Hours of sunlight: ${apiWeather["forecast"]["sun_hours"]}h`
-
+            `Weather for ${apiWeather["city"]["name"]} (${apiWeather["city"]["latitude"]}°, ${apiWeather["city"]["longitude"]}°): <br>
+                Min temperature: ${apiWeather["forecast"]["tmin"]} <br>
+                Max temperature: ${apiWeather["forecast"]["tmax"]} <br>
+                Rain probality: ${apiWeather["forecast"]["probarain"]} % <br>
+                Accumation of rain: ${apiWeather["forecast"]["rr10"]}mm <br>
+                Hours of sunlight: ${apiWeather["forecast"]["sun_hours"]}h <br>
+                Average wind speed: ${apiWeather["forecast"]["wind10m"]}km/h <br>
+                Wind direction: ${apiWeather["forecast"]["dirwind10m"]}° `
     })
     .catch(error => {
         document.getElementById("weatherResponse").innerHTML = "Not working";
