@@ -12,7 +12,7 @@ zipcodeInput.addEventListener("input", (e) => {
         document.getElementById("sendForm").hidden = false;
         zipcode = e.target.value;
         apiMunicipality();
-    }else{
+    } else {
         dropDownMunicipality.hidden = true;
         document.getElementById("commune-label").hidden = true;
         document.getElementById("sendForm").hidden = true;
@@ -21,7 +21,6 @@ zipcodeInput.addEventListener("input", (e) => {
 
 
 function addSelectElement(element) {
-    dropDownMunicipality.innerHTML = ''
     for (i = 0; i < element.length; i++) {
         const op = document.createElement('option');
         op.value = element[i].code;
@@ -46,6 +45,10 @@ function apiMunicipality() {
         .then(data => {
             if (testPostalCode(data)) {
                 addSelectElement(data);
+            } else {
+                dropDownMunicipality.hidden = true;
+                document.getElementById("commune-label").hidden = true;
+                document.getElementById("sendForm").hidden = true;
             }
         })
         .catch(error => {
