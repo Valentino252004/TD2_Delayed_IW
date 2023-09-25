@@ -18,7 +18,31 @@
 </head>
 
 <body>
-    <h1>Delayed Instant Weather</h1>
+    <header>
+        <h1>Delayed Instant Weather</h1>
+    </header>
+
+    <section>   
+        <div></div>
+            <form action="" method="get" class="commune-form">
+                <div id="CPInput">
+                    <label for="ZIPCode">Enter your ZIP Code : </label>
+                    <input id="ZIPCode">
+                </div>
+                
+                <div id="commune-choice">
+                    <label for="commune-select" id="commune-label" hidden >Choose a municipality :</label>
+                    <select name="commune" id="commune-select" hidden="hidden">
+                        
+                    </select>
+                </div>
+
+                <div id="search-button">
+                    <button hidden>Search</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
     <script src="./script/script.js"></script>
 </body>
