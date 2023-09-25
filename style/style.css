@@ -28,12 +28,22 @@ label {
 }
 
 #section-selection {
-    border: 3px solid #03224C;
+    text-align: center;
+    border: 5px solid #03224C;
     margin: 0 20%;
     border-radius: 15px ;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    padding: 3vh 0;
+}
+.commune-choice {
+    margin-bottom: 3vh;
+}
+
+button, input, select { 
+    font-size: min(2vw, 20px);
+    border: #03224C solid 3px;
+    border-radius: 10px;
+    padding: 3px 5px;
+    background-color: #1e90ff;
 }
 
 /* gestion des médias querries */
@@ -46,5 +56,11 @@ label {
         flex-direction: column;
         height: 40vh;
         font-size: min(4vw, 10px);
+    }
+
+    .commune-choice {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
 }
