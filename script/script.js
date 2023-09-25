@@ -21,6 +21,7 @@ zipcodeInput.addEventListener("input", (e) => {
 
 
 function addSelectElement(element) {
+    dropDownMunicipality.innerHTML = ''
     for (i = 0; i < element.length; i++) {
         const op = document.createElement('option');
         op.value = element[i].code;
