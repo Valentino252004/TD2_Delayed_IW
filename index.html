@@ -20,28 +20,26 @@
 <body>
     <header>
         <h1>Delayed Instant Weather</h1>
+        <img id="sunCloud" src="Images/SunCloud.png" alt="Sun and cloud" />
     </header>
 
-    <section>   
-        <div></div>
-            <form action="" method="get" class="commune-form">
-                <div id="CPInput">
-                    <label for="ZIPCode">Enter your ZIP Code : </label>
-                    <input id="ZIPCode">
-                </div>
-                
-                <div id="commune-choice">
-                    <label for="commune-select" id="commune-label" hidden >Choose a municipality :</label>
-                    <select name="commune" id="commune-select" hidden="hidden">
-                        
-                    </select>
-                </div>
-
-                <div id="search-button">
-                    <button hidden>Search</button>
-                </div>
-            </form>
-        </div>
+    <section id="section-selection"> 
+        <form action="" method="get" class="commune-form">
+            <div id="CPInput">
+                <label for="ZIPCode">Enter your ZIP Code : </label>
+                <input id="ZIPCode">
+            </div>
+            
+            <div id="commune-choice">
+                <label for="commune-select" id="commune-label" >Choose a municipality :</label>
+                <select name="commune" id="commune-select">
+                    
+                </select>
+            </div>
+        </form>
+        
+        <button>Search</button>
+        
     </section>
 
     <script src="./script/script.js"></script>
