@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+
+    border: 5px solid #22427C;
+    margin: 0 8%;
+    margin-top: 8vh;
+    height: 25vh;
+    border-radius: 15px;
+    background-color: #1e90ff;  
+    font-size: min(2vw, 25px);
+    margin-bottom: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#sunCloud {
+    width: 20%;
+    margin-top: 0;
+}
+
+label {
+    font-size: min(3vw, 25px);
+}
+
+#section-selection {
+    text-align: center;
+    border: 5px solid #03224C;
+    margin: 0 20%;
+    border-radius: 15px ;
+    padding: 3vh 0;
+}
+.commune-choice {
+    margin-bottom: 3vh;
+}
+
+button, input, select { 
+    font-size: min(2vw, 20px);
+    border: #03224C solid 3px;
+    border-radius: 10px;
+    padding: 3px 5px;
+    background-color: #1e90ff;
+}
+
+/* gestion des médias querries */
+@media screen and (max-width: 768px) {
+    #section-selection, header {
+        margin: 2vh 2%;
+    }
+    
+    header {
+        flex-direction: column;
+        height: 40vh;
+        font-size: min(4vw, 10px);
+    }
+
+    .commune-choice {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}

@@ -18,7 +18,29 @@
 </head>
 
 <body>
-    <h1>Delayed Instant Weather</h1>
+    <header>
+        <h1>Delayed Instant Weather</h1>
+        <img id="sunCloud" src="Images/SunCloud.png" alt="Sun and cloud" />
+    </header>
+
+    <section id="section-selection"> 
+        <form action="" method="get" class="commune-form">
+            <div class="commune-choice">
+                <label for="ZIPCode">Enter your ZIP Code : </label>
+                <input id="ZIPCode">
+            </div>
+            
+            <div class="commune-choice">
+                <label for="commune-select" id="commune-label" hidden>Choose a municipality :</label>
+                <select name="commune" id="commune-select" hidden="hidden">
+                    
+                </select>
+            </div>
+        </form>
+        
+        <button id="sendForm" hidden>Search</button>
+        
+    </section>
 
     <p id="weatherResponse">Loading...</p>
 
