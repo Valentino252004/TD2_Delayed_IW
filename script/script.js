@@ -6,7 +6,7 @@ const regex = new RegExp('^\\d{5}$', 'gm');
 let dropDownMunicipality = document.getElementById("commune-select");
 
 zipcodeInput.addEventListener("input", (e) => {
-    if (regex.test(e.target.value)) {
+    if (regex.test(e.target.value) && parseInt(e.target.value) < 96000) {
         dropDownMunicipality.hidden = false;
         document.getElementById("commune-label").hidden = false;
         document.getElementById("sendForm").hidden = false;
@@ -74,15 +74,25 @@ document.getElementById("sendForm").addEventListener("click", (e) => {
             return response.json();
         })
         .then(apiWeather => {
-            document.getElementById("weatherResponse").innerHTML = 
-                `Weather for ${apiWeather["city"]["name"]} (${apiWeather["city"]["latitude"]}°, ${apiWeather["city"]["longitude"]}°): <br>
-                    Min temperature: ${apiWeather["forecast"]["tmin"]}°C <br>
-                    Max temperature: ${apiWeather["forecast"]["tmax"]}°C <br>
-                    Rain probability: ${apiWeather["forecast"]["probarain"]} % <br>
-                    Accumulation of rain: ${apiWeather["forecast"]["rr10"]}mm <br>
-                    Hours of sunlight: ${apiWeather["forecast"]["sun_hours"]}h <br>
-                    Average wind speed: ${apiWeather["forecast"]["wind10m"]}km/h <br>
-                    Wind direction: ${apiWeather["forecast"]["dirwind10m"]}° <br><br>`
+            let winddir =  apiWeather["forecast"]["dirwind10m"];
+            let dirtext = "";
+            if (337 < winddir || winddir < 23) {
+                dirtext = "Nord";
+            } else if (winddir < 68) {
+                dirtext = "Nord-Est";
+            } else if (winddir < 113) {
+                dirtext = "Est";
+            } else if (winddir < 158) {
+                dirtext = "Sud-Est";
+            } else if (winddir < 203) {
+                dirtext = "Sud";
+            } else if (winddir < 248) {
+                dirtext = "Sud-Ouest";
+            } else if (winddir < 293) {
+                dirtext = "Ouest";
+            } else {
+                dirtext = "Nord-Ouest";
+            }
 
             let weather = apiWeather["forecast"]["weather"];
             let weatherText = "";
@@ -98,7 +108,18 @@ document.getElementById("sendForm").addEventListener("click", (e) => {
             } else {
                 weatherText = "Rainy";
             }
-            document.getElementById("weatherResponse").innerHTML += weatherText;
+
+            
+            document.getElementById("weatherResponse").innerHTML = 
+                `Weather for ${apiWeather["city"]["name"]} (${apiWeather["city"]["latitude"]}°, ${apiWeather["city"]["longitude"]}°): <br>
+                    Min temperature: ${apiWeather["forecast"]["tmin"]}°C <br>
+                    Max temperature: ${apiWeather["forecast"]["tmax"]}°C <br>
+                    Rain probability: ${apiWeather["forecast"]["probarain"]} % <br>
+                    Accumulation of rain: ${apiWeather["forecast"]["rr10"]}mm <br>
+                    Hours of sunlight: ${apiWeather["forecast"]["sun_hours"]}h <br>
+                    Average wind speed: ${apiWeather["forecast"]["wind10m"]}km/h <br>
+                    Wind direction: ${winddir}° (${dirtext}) <br><br>
+                    ${weatherText}`
         })
         .catch(error => {
             document.getElementById("weatherResponse").innerHTML = "Not working";
