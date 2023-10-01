@@ -5,6 +5,7 @@ const regex = new RegExp('^\\d{5}$', 'gm');
 
 let dropDownMunicipality = document.getElementById("commune-select");
 
+//Listener on the input for the zip-code
 zipcodeInput.addEventListener("input", (e) => {
     if (regex.test(e.target.value) && parseInt(e.target.value) < 96000) {
         dropDownMunicipality.hidden = false;
@@ -19,7 +20,7 @@ zipcodeInput.addEventListener("input", (e) => {
     }
 })
 
-
+// Add all the municipality with the same zip-code
 function addSelectElement(element) {
     dropDownMunicipality.innerHTML = ''
     for (i = 0; i < element.length; i++) {
@@ -30,10 +31,12 @@ function addSelectElement(element) {
     }
 }
 
+
 function testPostalCode(element) {
     return (element.length != 0);
 }
 
+// Handle geo-api 
 function apiMunicipality() {
     fetch(urlAPI + zipcode)
         .then(response => {
@@ -60,6 +63,12 @@ function apiMunicipality() {
 
 // Implementation of fixed code weather request
 
+let CheckB_latitude = document.getElementById('latitude');
+let CheckB_longitude = document.getElementById('longitude');
+let CheckB_AccRain = document.getElementById('AccRain');
+let CheckB_AvgWind = document.getElementById('AvgWind');
+let CheckB_windDir = document.getElementById('windDir');
+
 const token = "e9573bea167f06b5ca0805e4ef64e697562f702d022c084058058f958b11d272"
 
 document.getElementById("sendForm").addEventListener("click", (e) => {
@@ -74,7 +83,7 @@ document.getElementById("sendForm").addEventListener("click", (e) => {
             return response.json();
         })
         .then(apiWeather => {
-            let winddir =  apiWeather["forecast"]["dirwind10m"];
+            let winddir = apiWeather["forecast"]["dirwind10m"];
             let dirtext = "";
             if (337 < winddir || winddir < 23) {
                 dirtext = "Nord";
@@ -109,8 +118,8 @@ document.getElementById("sendForm").addEventListener("click", (e) => {
                 weatherText = "Rainy";
             }
 
-            
-            document.getElementById("weatherResponse").innerHTML = 
+
+            document.getElementById("weatherResponse").innerHTML =
                 `Weather for ${apiWeather["city"]["name"]} (${apiWeather["city"]["latitude"]}°, ${apiWeather["city"]["longitude"]}°): <br>
                     Min temperature: ${apiWeather["forecast"]["tmin"]}°C <br>
                     Max temperature: ${apiWeather["forecast"]["tmax"]}°C <br>
