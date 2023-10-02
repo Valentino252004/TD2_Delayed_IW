@@ -3,6 +3,7 @@
     padding: 0;
     font-family: "Fredoka";
 }
+
 header {
     border: 5px solid #22427C;
     margin: 0 8%;
@@ -58,10 +59,11 @@ select {
 }
 
 button:hover {
-    color:white;
+    color: white;
     background-color: #3A92E1;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 /* gestion des médias querries */
 @media screen and (max-width: 768px) {
 
