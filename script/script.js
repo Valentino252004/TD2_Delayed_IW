@@ -10,12 +10,12 @@ zipcodeInput.addEventListener("input", (e) => {
     if (regex.test(e.target.value) && parseInt(e.target.value) < 96000) {
         zipcode = e.target.value;
         apiMunicipality();
-    }else{
+    } else {
         ShowOrHideMunicipality(true);
     }
 })
 
-function ShowOrHideMunicipality(show){
+function ShowOrHideMunicipality(show) {
     dropDownMunicipality.hidden = show;
     document.getElementById("commune-label").hidden = show;
     document.getElementById("sendForm").hidden = show;
