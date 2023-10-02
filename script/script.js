@@ -113,20 +113,24 @@ function displayWeather(apiWeather, count) {
         } else {
             dirtext = "Nord-Ouest";
         }
-
         let weather = apiWeather["forecast"][day]["weather"];
         let weatherText = "";
 
         if (weather == 0) {
             weatherText = "Ensoleillé";
+            document.getElementById("image-weather").src="./Images/sun_weather_icon.png";
         } else if (weather == 1) {
             weatherText = "Un peu nuageux";
+            document.getElementById("image-weather").src="./Images/bit_cloudy_weather_icon.png";
         } else if (weather < 10) {
             weatherText = "Nuageux";
+            document.getElementById("image-weather").src="./Images/cloudy_weather_icon.png";
         } else if (weather >= 100 && weather < 200) {
             weatherText = "Orageux";
+            document.getElementById("image-weather").src="./Images/stormy_weather_icon.png";
         } else {
             weatherText = "Pluvieux";
+            document.getElementById("image-weather").src="./Images/rainy_weather_icon.png";
         }
 
         let theDate = new Date(Date.parse(apiWeather["forecast"][day]["datetime"]));
