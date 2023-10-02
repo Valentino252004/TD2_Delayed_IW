@@ -70,94 +70,101 @@ const CHECKBOX_LONGITUDE = document.getElementById('longitude');
 const CHECKBOX_RAIN = document.getElementById('AccRain');
 const CHECKBOX_WINDSPEED = document.getElementById('AvgWind');
 const CHECKBOX_WINDDIR = document.getElementById('windDir');
-const DIV_WEATHER = document.getElementById("weatherResponse");
+const WEATHER_RESPONSE = document.getElementById("weatherResponse");
 let apiWeather = null;
 
 [].forEach.call(document.getElementsByClassName("CheckButton"), function(el) {
     el.addEventListener("change", function() {
         if (apiWeather != null) {
-            displayWeather(apiWeather);
+            displayWeather(apiWeather, dayRange.value);
         }
     });
 });
 
 const token = "e9573bea167f06b5ca0805e4ef64e697562f702d022c084058058f958b11d272"
 
-function displayWeather(apiWeather) {
-    let hasLatitude = CHECKBOX_LATITUDE.checked;
-    let hasLongitude = CHECKBOX_LONGITUDE.checked;
-    let hasRain = CHECKBOX_RAIN.checked;
-    let hasWindSpeed = CHECKBOX_WINDSPEED.checked;
-    let hasWindDir = CHECKBOX_WINDDIR.checked;
+function displayWeather(apiWeather, count) {
+    WEATHER_RESPONSE.innerHTML = "";
+    for (let day = 0; day < count; day++) {
+        const DIV_WEATHER = document.createElement("div");
+        DIV_WEATHER.classList.add("weatherDay");
+        let hasLatitude = CHECKBOX_LATITUDE.checked;
+        let hasLongitude = CHECKBOX_LONGITUDE.checked;
+        let hasRain = CHECKBOX_RAIN.checked;
+        let hasWindSpeed = CHECKBOX_WINDSPEED.checked;
+        let hasWindDir = CHECKBOX_WINDDIR.checked;
 
-    let winddir = apiWeather["forecast"]["dirwind10m"];
-    let dirtext = "";
-    if (337 < winddir || winddir < 23) {
-        dirtext = "Nord";
-    } else if (winddir < 68) {
-        dirtext = "Nord-Est";
-    } else if (winddir < 113) {
-        dirtext = "Est";
-    } else if (winddir < 158) {
-        dirtext = "Sud-Est";
-    } else if (winddir < 203) {
-        dirtext = "Sud";
-    } else if (winddir < 248) {
-        dirtext = "Sud-Ouest";
-    } else if (winddir < 293) {
-        dirtext = "Ouest";
-    } else {
-        dirtext = "Nord-Ouest";
-    }
+        let winddir = apiWeather["forecast"][day]["dirwind10m"];
+        let dirtext = "";
+        if (337 < winddir || winddir < 23) {
+            dirtext = "Nord";
+        } else if (winddir < 68) {
+            dirtext = "Nord-Est";
+        } else if (winddir < 113) {
+            dirtext = "Est";
+        } else if (winddir < 158) {
+            dirtext = "Sud-Est";
+        } else if (winddir < 203) {
+            dirtext = "Sud";
+        } else if (winddir < 248) {
+            dirtext = "Sud-Ouest";
+        } else if (winddir < 293) {
+            dirtext = "Ouest";
+        } else {
+            dirtext = "Nord-Ouest";
+        }
+        let weather = apiWeather["forecast"][day]["weather"];
+        let weatherText = "";
 
-    let weather = apiWeather["forecast"]["weather"];
-    let weatherText = "";
+        if (weather == 0) {
+            weatherText = "Ensoleillé";
+            document.getElementById("image-weather").src="./Images/sun_weather_icon.png";
+        } else if (weather == 1) {
+            weatherText = "Un peu nuageux";
+            document.getElementById("image-weather").src="./Images/bit_cloudy_weather_icon.png";
+        } else if (weather < 10) {
+            weatherText = "Nuageux";
+            document.getElementById("image-weather").src="./Images/cloudy_weather_icon.png";
+        } else if (weather >= 100 && weather < 200) {
+            weatherText = "Orageux";
+            document.getElementById("image-weather").src="./Images/stormy_weather_icon.png";
+        } else {
+            weatherText = "Pluvieux";
+            document.getElementById("image-weather").src="./Images/rainy_weather_icon.png";
+        }
 
-    if (weather == 0) {
-        weatherText = "Ensoleillé";
-        document.getElementById("image-weather").src="./Images/sun_weather_icon.png";
-    } else if (weather == 1) {
-        weatherText = "Un peu nuageux";
-        document.getElementById("image-weather").src="./Images/bit_cloudy_weather_icon.png";
-    } else if (weather < 10) {
-        weatherText = "Nuageux";
-        document.getElementById("image-weather").src="./Images/cloudy_weather_icon.png";
-    } else if (weather >= 100 && weather < 200) {
-        weatherText = "Orageux";
-        document.getElementById("image-weather").src="./Images/stormy_weather_icon.png";
-    } else {
-        weatherText = "Pluvieux";
-        document.getElementById("image-weather").src="./Images/rainy_weather_icon.png";
-    }
+        let theDate = new Date(Date.parse(apiWeather["forecast"][day]["datetime"]));
 
-
-    DIV_WEATHER.innerHTML = `<p>Météo pour ${apiWeather["city"]["name"]}: </p>`;
-    
-    DIV_WEATHER.innerHTML += `<p>${weatherText}</p>`
-    DIV_WEATHER.innerHTML += `<p>Temperature min: ${apiWeather["forecast"]["tmin"]}°C </p>`
-    DIV_WEATHER.innerHTML += `<p>Temperature max: ${apiWeather["forecast"]["tmax"]}°C  </p>`
-    DIV_WEATHER.innerHTML += `<p>Probabilité de pluie: ${apiWeather["forecast"]["probarain"]} %  </p>`
-    DIV_WEATHER.innerHTML += `<p>Heures d'ensoleillement: ${apiWeather["forecast"]["sun_hours"]}h  </p>`
-    if (hasLatitude) {
-        DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`
-    }
-    if (hasLongitude) {
-        DIV_WEATHER.innerHTML += `<p>Longitude: ${apiWeather["city"]["longitude"]} </p>`
-    }
-    if (hasRain) {
-        DIV_WEATHER.innerHTML += `<p>Cumul de pluie : ${apiWeather["forecast"]["rr10"]}mm  </p>`
-    }
-    if (hasWindSpeed) {
-        DIV_WEATHER.innerHTML += `<p>Vitesse moyenne du vent : ${apiWeather["forecast"]["wind10m"]}km/h  </p>`
-    }
-    if (hasWindDir) {
-        DIV_WEATHER.innerHTML += `<p>Direction du vent: ${winddir}° (${dirtext})  </p>`
+        DIV_WEATHER.innerHTML = `<p>${theDate.toLocaleString("fr-FR", {weekday: 'long', day:"numeric", month:"long"})}</p>`;
+        DIV_WEATHER.innerHTML += `<p>Météo pour ${apiWeather["city"]["name"]}: </p>`;
+        
+        DIV_WEATHER.innerHTML += `<p>${weatherText}</p>`
+        DIV_WEATHER.innerHTML += `<p>Temperature min: ${apiWeather["forecast"][day]["tmin"]}°C </p>`
+        DIV_WEATHER.innerHTML += `<p>Temperature max: ${apiWeather["forecast"][day]["tmax"]}°C  </p>`
+        DIV_WEATHER.innerHTML += `<p>Probabilité de pluie: ${apiWeather["forecast"][day]["probarain"]} %  </p>`
+        DIV_WEATHER.innerHTML += `<p>Heures d'ensoleillement: ${apiWeather["forecast"][day]["sun_hours"]}h  </p>`
+        if (hasLatitude) {
+            DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`
+        }
+        if (hasLongitude) {
+            DIV_WEATHER.innerHTML += `<p>Longitude: ${apiWeather["city"]["longitude"]} </p>`
+        }
+        if (hasRain) {
+            DIV_WEATHER.innerHTML += `<p>Cumul de pluie : ${apiWeather["forecast"][day]["rr10"]}mm  </p>`
+        }
+        if (hasWindSpeed) {
+            DIV_WEATHER.innerHTML += `<p>Vitesse moyenne du vent : ${apiWeather["forecast"][day]["wind10m"]}km/h  </p>`
+        }
+        if (hasWindDir) {
+            DIV_WEATHER.innerHTML += `<p>Direction du vent: ${winddir}° (${dirtext})  </p>`
+        }
+        WEATHER_RESPONSE.appendChild(DIV_WEATHER);
     }
 }
 
 document.getElementById("sendForm").addEventListener("click", (e) => {
     let codeInsee = dropDownMunicipality.options[dropDownMunicipality.selectedIndex].value.toString();
-    let req = `https://api.meteo-concept.com/api/forecast/daily/0?token=${token}&insee=${codeInsee}`;
+    let req = `https://api.meteo-concept.com/api/forecast/daily?token=${token}&insee=${codeInsee}`;
 
     fetch(req)
         .then(response => {
@@ -168,7 +175,7 @@ document.getElementById("sendForm").addEventListener("click", (e) => {
         })
         .then(response => {
             apiWeather = response;
-            displayWeather(apiWeather);
+            displayWeather(apiWeather, dayRange.value);
         })
         .catch(error => {
             document.getElementById("weatherResponse").innerHTML = "Not working";
