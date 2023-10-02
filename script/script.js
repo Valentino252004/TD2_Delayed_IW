@@ -1,3 +1,4 @@
+let numberDay = 1;
 let urlAPI = 'https://geo.api.gouv.fr/communes?codePostal='
 let zipcode;
 let zipcodeInput = document.querySelector("#ZIPCode");
@@ -76,7 +77,7 @@ let apiWeather = null;
 [].forEach.call(document.getElementsByClassName("CheckButton"), function(el) {
     el.addEventListener("change", function() {
         if (apiWeather != null) {
-            displayWeather(apiWeather, dayRange.value);
+            displayWeather(apiWeather, numberDay);
         }
     });
 });
@@ -175,9 +176,20 @@ document.getElementById("sendForm").addEventListener("click", (e) => {
         })
         .then(response => {
             apiWeather = response;
-            displayWeather(apiWeather, dayRange.value);
+            displayWeather(apiWeather, numberDay);
         })
         .catch(error => {
             document.getElementById("weatherResponse").innerHTML = "Not working";
         });
+});
+
+const DAY_RANGE = document.getElementById("dayRange");
+
+DAY_RANGE.addEventListener("input", function() {
+    const dayRegEx = new RegExp('^[1-7]$', 'gm');
+    if (!dayRegEx.test(DAY_RANGE.value)) {
+        DAY_RANGE.value = numberDay;
+    } else {
+        numberDay = DAY_RANGE.value;
+    }
 });
