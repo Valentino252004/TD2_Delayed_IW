@@ -7,7 +7,7 @@
     <title>Delayed IW</title>
 
     <!-- Kit Google -->
-    <!-- link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka" -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka">
 
     <!--Kit de Font Awesome-->
     <script src="https://kit.fontawesome.com/9a8552360f.js" crossorigin="anonymous"></script>
@@ -23,23 +23,48 @@
         <img id="sunCloud" src="Images/SunCloud.png" alt="Sun and cloud" />
     </header>
 
-    <section id="section-selection"> 
+    <section id="section-selection">
         <form action="" method="get" class="commune-form">
             <div class="commune-choice">
                 <label for="ZIPCode">Enter your ZIP Code : </label>
                 <input id="ZIPCode">
             </div>
-            
+
             <div class="commune-choice">
                 <label for="commune-select" id="commune-label" hidden>Choose a municipality :</label>
                 <select name="commune" id="commune-select" hidden="hidden">
-                    
+
                 </select>
             </div>
         </form>
-        
+
+        <label>Additional infomations :</label>
+
+        <div class="CheckboxBox">
+            <div class="CheckButton">
+                <input type="checkbox" id="latitude" class="BtnCheck" />
+                <label for="latitude">latitude</label>
+            </div>
+            <div class="CheckButton">
+                <input type="checkbox" id="longitude" class="BtnCheck" />
+                <label for="longitude">longitude</label>
+            </div>
+            <div class="CheckButton">
+                <input type="checkbox" id="AccRain" class="BtnCheck" />
+                <label for="AccRain">Accumulated rain (mm)</label>
+            </div>
+            <div class="CheckButton">
+                <input type="checkbox" id="AvgWind" class="BtnCheck" />
+                <label for="AvgWind">Average wind speed</label>
+            </div>
+            <div class="CheckButton">
+                <input type="checkbox" id="windDir" class="BtnCheck" />
+                <label for="windDir">Wind direction</label>
+            </div>
+        </div>
+
         <button id="sendForm" hidden>Search</button>
-        
+
     </section>
 
     <section id="section-weather">
