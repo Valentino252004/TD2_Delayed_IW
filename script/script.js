@@ -8,17 +8,18 @@ let dropDownMunicipality = document.getElementById("commune-select");
 //Listener on the input for the zip-code
 zipcodeInput.addEventListener("input", (e) => {
     if (regex.test(e.target.value) && parseInt(e.target.value) < 96000) {
-        dropDownMunicipality.hidden = false;
-        document.getElementById("commune-label").hidden = false;
-        document.getElementById("sendForm").hidden = false;
         zipcode = e.target.value;
         apiMunicipality();
     } else {
-        dropDownMunicipality.hidden = true;
-        document.getElementById("commune-label").hidden = true;
-        document.getElementById("sendForm").hidden = true;
+        ShowOrHideMunicipality(true);
     }
 })
+
+function ShowOrHideMunicipality(show) {
+    dropDownMunicipality.hidden = show;
+    document.getElementById("commune-label").hidden = show;
+    document.getElementById("sendForm").hidden = show;
+}
 
 // Add all the municipality with the same zip-code
 function addSelectElement(element) {
@@ -48,6 +49,7 @@ function apiMunicipality() {
         })
         .then(data => {
             if (testPostalCode(data)) {
+                ShowOrHideMunicipality(false);
                 addSelectElement(data);
             } else {
                 dropDownMunicipality.hidden = true;
