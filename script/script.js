@@ -142,15 +142,15 @@ function displayWeather(apiWeather) {
         imgAlt = "rainy_icon.png";
     }
 
-    DIV_WEATHER.innerHTML += `<div id="card-div"><img id="image-weather"/><p>${weatherText}</p></div>`;
+    DIV_WEATHER.innerHTML += `<div id="weather-info">
+        <div id="card-div"><img id="image-weather"/><p>${weatherText}</p></div>
+        <div id="global-info"><p>min : ${apiWeather["forecast"]["tmin"]}°C </p><p>max : ${apiWeather["forecast"]["tmax"]}°C  </p>
+        <p>Probabilité de pluie: ${apiWeather["forecast"]["probarain"]} %  </p><p>Heures d'ensoleillement: ${apiWeather["forecast"]["sun_hours"]}h  </p></div>
+        </div>`;
 
     document.getElementById("image-weather").src=imgSrc;
     document.getElementById("image-weather").alt=imgAlt;
 
-    DIV_WEATHER.innerHTML += `<p>Temperature min: ${apiWeather["forecast"]["tmin"]}°C </p>`;
-    DIV_WEATHER.innerHTML += `<p>Temperature max: ${apiWeather["forecast"]["tmax"]}°C  </p>`;
-    DIV_WEATHER.innerHTML += `<p>Probabilité de pluie: ${apiWeather["forecast"]["probarain"]} %  </p>`;
-    DIV_WEATHER.innerHTML += `<p>Heures d'ensoleillement: ${apiWeather["forecast"]["sun_hours"]}h  </p>`;
 
     if (hasLatitude) {
         DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`;

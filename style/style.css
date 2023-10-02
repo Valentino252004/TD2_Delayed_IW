@@ -62,17 +62,33 @@ button:hover {
     cursor: pointer;
 }
 
+
+#weather-info {
+    font-size: min(2vw, 30px);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
 #card-div {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding-right: 1vh;
 }
 
 #city-div {
     text-align: center;
-    background-color: gray;
+    background-color: #2B92F9;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
+}
+
+#global-info {
+    text-align: center;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2,50%);
 }
 
 #image-weather {
@@ -82,6 +98,7 @@ button:hover {
 }
 
 #span-weather {
+
 }
 
 /* gestion des médias querries */
@@ -95,6 +112,11 @@ button:hover {
 
     #sunCloud {
         height: 50%;
+    }
+
+    #image-weather {
+        height: 10vh;
+        width: 10vh;
     }
 
     header {
