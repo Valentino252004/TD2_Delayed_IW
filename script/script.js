@@ -114,25 +114,25 @@ function displayWeather(apiWeather) {
     let weatherText = "";
 
     if (weather == 0) {
-        weatherText = "Sunny";
+        weatherText = "Ensoleillé";
     } else if (weather == 1) {
-        weatherText = "A bit cloudy";
+        weatherText = "Un peu nuageux";
     } else if (weather < 10) {
-        weatherText = "Cloudy";
+        weatherText = "Nuageux";
     } else if (weather >= 100 && weather < 200) {
-        weatherText = "Stormy";
+        weatherText = "Orageux";
     } else {
-        weatherText = "Rainy";
+        weatherText = "Pluvieux";
     }
 
 
-    DIV_WEATHER.innerHTML = `<p>Weather for ${apiWeather["city"]["name"]}: </p>`;
+    DIV_WEATHER.innerHTML = `<p>Météo pour ${apiWeather["city"]["name"]}: </p>`;
     
-    DIV_WEATHER.innerHTML += `<p>It's ${weatherText}</p>`
-    DIV_WEATHER.innerHTML += `<p>Min temperature: ${apiWeather["forecast"]["tmin"]}°C </p>`
-    DIV_WEATHER.innerHTML += `<p>Max temperature: ${apiWeather["forecast"]["tmax"]}°C  </p>`
-    DIV_WEATHER.innerHTML += `<p>Rain probability: ${apiWeather["forecast"]["probarain"]} %  </p>`
-    DIV_WEATHER.innerHTML += `<p>Hours of sunlight: ${apiWeather["forecast"]["sun_hours"]}h  </p>`
+    DIV_WEATHER.innerHTML += `<p>${weatherText}</p>`
+    DIV_WEATHER.innerHTML += `<p>Temperature min: ${apiWeather["forecast"]["tmin"]}°C </p>`
+    DIV_WEATHER.innerHTML += `<p>Temperature max: ${apiWeather["forecast"]["tmax"]}°C  </p>`
+    DIV_WEATHER.innerHTML += `<p>Probabilité de pluie: ${apiWeather["forecast"]["probarain"]} %  </p>`
+    DIV_WEATHER.innerHTML += `<p>Heures d'ensoleillement: ${apiWeather["forecast"]["sun_hours"]}h  </p>`
     if (hasLatitude) {
         DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`
     }
@@ -140,13 +140,13 @@ function displayWeather(apiWeather) {
         DIV_WEATHER.innerHTML += `<p>Longitude: ${apiWeather["city"]["longitude"]} </p>`
     }
     if (hasRain) {
-        DIV_WEATHER.innerHTML += `<p>Accumulation of rain: ${apiWeather["forecast"]["rr10"]}mm  </p>`
+        DIV_WEATHER.innerHTML += `<p>Cumul de pluie : ${apiWeather["forecast"]["rr10"]}mm  </p>`
     }
     if (hasWindSpeed) {
-        DIV_WEATHER.innerHTML += `<p>Average wind speed: ${apiWeather["forecast"]["wind10m"]}km/h  </p>`
+        DIV_WEATHER.innerHTML += `<p>Vitesse moyenne du vent : ${apiWeather["forecast"]["wind10m"]}km/h  </p>`
     }
     if (hasWindDir) {
-        DIV_WEATHER.innerHTML += `<p>Wind direction: ${winddir}° (${dirtext})  </p>`
+        DIV_WEATHER.innerHTML += `<p>Direction du vent: ${winddir}° (${dirtext})  </p>`
     }
 }
 
