@@ -115,14 +115,19 @@ function displayWeather(apiWeather) {
 
     if (weather == 0) {
         weatherText = "Sunny";
+        document.getElementById("image-weather").src="../Images/sun_weather_icon.png";
     } else if (weather == 1) {
         weatherText = "A bit cloudy";
+        document.getElementById("image-weather").src="../Images/bit_cloudy_weather_icon.png";
     } else if (weather < 10) {
         weatherText = "Cloudy";
+        document.getElementById("image-weather").src="../Images/cloudy_weather_icon.png";
     } else if (weather >= 100 && weather < 200) {
         weatherText = "Stormy";
+        document.getElementById("image-weather").src="../Images/stormy_weather_icon.png";
     } else {
         weatherText = "Rainy";
+        document.getElementById("image-weather").src="../Images/rainy_weather_icon.png";
     }
 
 
