@@ -26,19 +26,19 @@
     <section id="section-selection">
         <form action="" method="get" class="commune-form">
             <div class="commune-choice">
-                <label for="ZIPCode">Enter your ZIP Code : </label>
+                <label for="ZIPCode">Entrez votre code postal : </label>
                 <input id="ZIPCode">
             </div>
 
             <div class="commune-choice">
-                <label for="commune-select" id="commune-label" hidden>Choose a municipality :</label>
+                <label for="commune-select" id="commune-label" hidden>Choisissez une ville :</label>
                 <select name="commune" id="commune-select" hidden="hidden">
 
                 </select>
             </div>
         </form>
 
-        <label>Additional infomations :</label>
+        <label>Informations Supplémentaires :</label>
 
         <div class="CheckboxBox">
             <div class="CheckButton">
@@ -51,24 +51,24 @@
             </div>
             <div class="CheckButton">
                 <input type="checkbox" id="AccRain" class="BtnCheck" />
-                <label for="AccRain">Accumulated rain (mm)</label>
+                <label for="AccRain">Cumul de pluie en mm</label>
             </div>
             <div class="CheckButton">
                 <input type="checkbox" id="AvgWind" class="BtnCheck" />
-                <label for="AvgWind">Average wind speed</label>
+                <label for="AvgWind">Vent moyen en km/h</label>
             </div>
             <div class="CheckButton">
                 <input type="checkbox" id="windDir" class="BtnCheck" />
-                <label for="windDir">Wind direction</label>
+                <label for="windDir">Direction du vent</label>
             </div>
         </div>
 
-        <button id="sendForm" hidden>Search</button>
+        <button id="sendForm" hidden>Rechercher</button>
 
     </section>
 
     <section id="section-weather">
-        <p id="weatherResponse">Please enter a city</p>
+        <p id="weatherResponse">Entrez d'abord un code postal puis Choisissez une ville</p>
     </section>
 
     <script src="./script/script.js"></script>
