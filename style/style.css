@@ -39,12 +39,10 @@ label {
     margin-bottom: 3vh;
 }
 
-#section-weather {
-    text-align: center;
+.section-card {
     border: 5px solid #03224C;
     margin: 1% 20%;
     border-radius: 15px;
-    padding: 3vh 0;
     font-size: min(3vw, 25px);
 }
 
@@ -62,6 +60,28 @@ button:hover {
     color: white;
     background-color: #3A92E1;
     cursor: pointer;
+}
+
+#card-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#city-div {
+    text-align: center;
+    background-color: gray;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+#image-weather {
+
+    height: 15h;
+    width: 15vh;
+}
+
+#span-weather {
 }
 
 /* gestion des médias querries */

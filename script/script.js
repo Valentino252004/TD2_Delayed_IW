@@ -5,6 +5,8 @@ const regex = new RegExp('^\\d{5}$', 'gm');
 
 let dropDownMunicipality = document.getElementById("commune-select");
 
+let weather_card = document.getElementById("section-weather");
+
 //Listener on the input for the zip-code
 zipcodeInput.addEventListener("input", (e) => {
     if (regex.test(e.target.value) && parseInt(e.target.value) < 96000) {
@@ -70,7 +72,7 @@ const CHECKBOX_LONGITUDE = document.getElementById('longitude');
 const CHECKBOX_RAIN = document.getElementById('AccRain');
 const CHECKBOX_WINDSPEED = document.getElementById('AvgWind');
 const CHECKBOX_WINDDIR = document.getElementById('windDir');
-const DIV_WEATHER = document.getElementById("weatherResponse");
+const DIV_WEATHER = document.getElementById("section-weather");
 let apiWeather = null;
 
 [].forEach.call(document.getElementsByClassName("CheckButton"), function(el) {
@@ -112,37 +114,49 @@ function displayWeather(apiWeather) {
 
     let weather = apiWeather["forecast"]["weather"];
     let weatherText = "";
+    let imgSrc="";
+    let imgAlt="";
+    weather_card.className = "section-card";
+
+    DIV_WEATHER.innerHTML = `<div id="city-div"><p>Météo pour ${apiWeather["city"]["name"]}: </p></div>`;
 
     if (weather == 0) {
         weatherText = "Ensoleillé";
-        document.getElementById("image-weather").src="../Images/sun_weather_icon.png";
+        imgSrc = "../Images/sun_weather_icon.png";
+        imgAlt = "sun_icon.png";
     } else if (weather == 1) {
         weatherText = "Un peu nuageux";
-        document.getElementById("image-weather").src="../Images/bit_cloudy_weather_icon.png";
+        imgSrc = "../Images/bit_cloudy_weather_icon.png";
+        imgAlt = "bit_cloudy_icon.png";
     } else if (weather < 10) {
         weatherText = "Nuageux";
-        document.getElementById("image-weather").src="../Images/cloudy_weather_icon.png";
+        imgSrc = "../Images/cloudy_weather_icon.png";
+        imgAlt = "cloudy_icon.png";
     } else if (weather >= 100 && weather < 200) {
         weatherText = "Orageux";
-        document.getElementById("image-weather").src="../Images/stormy_weather_icon.png";
+        imgSrc = "../Images/stormy_weather_icon.png";
+        imgAlt = "stormy_icon.png";
     } else {
         weatherText = "Pluvieux";
-        document.getElementById("image-weather").src="../Images/rainy_weather_icon.png";
+        imgSrc = "../Images/rainy_weather_icon.png";
+        imgAlt = "rainy_icon.png";
     }
 
+    DIV_WEATHER.innerHTML += `<div id="card-div"><img id="image-weather"/><p>${weatherText}</p></div>`;
 
-    DIV_WEATHER.innerHTML = `<p>Météo pour ${apiWeather["city"]["name"]}: </p>`;
-    
-    DIV_WEATHER.innerHTML += `<p>${weatherText}</p>`
-    DIV_WEATHER.innerHTML += `<p>Temperature min: ${apiWeather["forecast"]["tmin"]}°C </p>`
-    DIV_WEATHER.innerHTML += `<p>Temperature max: ${apiWeather["forecast"]["tmax"]}°C  </p>`
-    DIV_WEATHER.innerHTML += `<p>Probabilité de pluie: ${apiWeather["forecast"]["probarain"]} %  </p>`
-    DIV_WEATHER.innerHTML += `<p>Heures d'ensoleillement: ${apiWeather["forecast"]["sun_hours"]}h  </p>`
+    document.getElementById("image-weather").src=imgSrc;
+    document.getElementById("image-weather").alt=imgAlt;
+
+    DIV_WEATHER.innerHTML += `<p>Temperature min: ${apiWeather["forecast"]["tmin"]}°C </p>`;
+    DIV_WEATHER.innerHTML += `<p>Temperature max: ${apiWeather["forecast"]["tmax"]}°C  </p>`;
+    DIV_WEATHER.innerHTML += `<p>Probabilité de pluie: ${apiWeather["forecast"]["probarain"]} %  </p>`;
+    DIV_WEATHER.innerHTML += `<p>Heures d'ensoleillement: ${apiWeather["forecast"]["sun_hours"]}h  </p>`;
+
     if (hasLatitude) {
-        DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`
+        DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`;
     }
     if (hasLongitude) {
-        DIV_WEATHER.innerHTML += `<p>Longitude: ${apiWeather["city"]["longitude"]} </p>`
+        DIV_WEATHER.innerHTML += `<p>Longitude: ${apiWeather["city"]["longitude"]} </p>`;
     }
     if (hasRain) {
         DIV_WEATHER.innerHTML += `<p>Cumul de pluie : ${apiWeather["forecast"]["rr10"]}mm  </p>`
