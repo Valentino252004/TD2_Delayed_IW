@@ -6,6 +6,8 @@ const regex = new RegExp('^\\d{5}$', 'gm');
 
 let dropDownMunicipality = document.getElementById("commune-select");
 
+let weather_card = document.getElementById("section-weather");
+
 //Listener on the input for the zip-code
 zipcodeInput.addEventListener("input", (e) => {
     if (regex.test(e.target.value) && parseInt(e.target.value) < 96000) {
@@ -84,6 +86,7 @@ let apiWeather = null;
 
 const token = "e9573bea167f06b5ca0805e4ef64e697562f702d022c084058058f958b11d272"
 
+
 function displayWeather(apiWeather, count) {
     WEATHER_RESPONSE.innerHTML = "";
     for (let day = 0; day < count; day++) {
@@ -116,34 +119,47 @@ function displayWeather(apiWeather, count) {
         }
         let weather = apiWeather["forecast"][day]["weather"];
         let weatherText = "";
+        let imgSrc="";
+        let imgAlt="";
+        weather_card.className = "section-card";
+      
+        DIV_WEATHER.innerHTML = `<div id="city-div"><p>Météo pour ${apiWeather["city"]["name"]}: </p></div>`;
 
         if (weather == 0) {
             weatherText = "Ensoleillé";
-            document.getElementById("image-weather").src="./Images/sun_weather_icon.png";
+            imgSrc = "../Images/sun_weather_icon.png";
+            imgAlt = "Ensoleillé_icon.png";
         } else if (weather == 1) {
             weatherText = "Un peu nuageux";
-            document.getElementById("image-weather").src="./Images/bit_cloudy_weather_icon.png";
+            imgSrc = "../Images/bit_cloudy_weather_icon.png";
+            imgAlt = "un_peu_nuageux_icon.png";
         } else if (weather < 10) {
             weatherText = "Nuageux";
-            document.getElementById("image-weather").src="./Images/cloudy_weather_icon.png";
+            imgSrc = "../Images/cloudy_weather_icon.png";
+            imgAlt = "nuageux_icon.png";
         } else if (weather >= 100 && weather < 200) {
             weatherText = "Orageux";
-            document.getElementById("image-weather").src="./Images/stormy_weather_icon.png";
+            imgSrc = "../Images/stormy_weather_icon.png";
+            imgAlt = "orageux_icon.png";
         } else {
             weatherText = "Pluvieux";
-            document.getElementById("image-weather").src="./Images/rainy_weather_icon.png";
+            imgSrc = "../Images/rainy_weather_icon.png";
+            imgAlt = "pluvieux_icon.png";
         }
 
         let theDate = new Date(Date.parse(apiWeather["forecast"][day]["datetime"]));
-
+  
+        DIV_WEATHER.innerHTML += `<div id="weather-info">
+        <div id="card-div"><img id="image-weather"/><p>${weatherText}</p></div>
+        <div id="global-info"><p>min : ${apiWeather["forecast"]["tmin"]}°C </p><p>max : ${apiWeather["forecast"]["tmax"]}°C  </p>
+        <p>Probabilité de pluie: ${apiWeather["forecast"]["probarain"]} %  </p><p>Heures d'ensoleillement: ${apiWeather["forecast"]["sun_hours"]}h  </p></div>
+        </div>`;
+      
         DIV_WEATHER.innerHTML = `<p>${theDate.toLocaleString("fr-FR", {weekday: 'long', day:"numeric", month:"long"})}</p>`;
-        DIV_WEATHER.innerHTML += `<p>Météo pour ${apiWeather["city"]["name"]}: </p>`;
+      
+        document.getElementById("image-weather").src=imgSrc;
+        document.getElementById("image-weather").alt=imgAlt;
         
-        DIV_WEATHER.innerHTML += `<p>${weatherText}</p>`
-        DIV_WEATHER.innerHTML += `<p>Temperature min: ${apiWeather["forecast"][day]["tmin"]}°C </p>`
-        DIV_WEATHER.innerHTML += `<p>Temperature max: ${apiWeather["forecast"][day]["tmax"]}°C  </p>`
-        DIV_WEATHER.innerHTML += `<p>Probabilité de pluie: ${apiWeather["forecast"][day]["probarain"]} %  </p>`
-        DIV_WEATHER.innerHTML += `<p>Heures d'ensoleillement: ${apiWeather["forecast"][day]["sun_hours"]}h  </p>`
         if (hasLatitude) {
             DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`
         }
