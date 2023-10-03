@@ -35,7 +35,7 @@ label {
     padding: 3vh 0;
 }
 
-.commune-choice {
+.commune-form > div {
     margin-bottom: 3vh;
 }
 
@@ -130,4 +130,31 @@ button:hover {
         align-items: center;
         flex-direction: column;
     }
+}
+
+#weatherResponse {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1vh;
+    margin: 3vh;
+}
+
+.weatherDay {
+    text-align: center;
+    border: 3px solid #03224C;
+    border-radius: 15px;
+    padding: 3vh;
+    font-size: min(3vw, 25px);
+}
+
+#day-number {
+    display: flex;
+    justify-content: center;
+    gap: 1vh;
+    align-items: center;
+}
+
+#dayRange {
+    width: 5vh;
 }
