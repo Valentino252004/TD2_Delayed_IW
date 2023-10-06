@@ -6,6 +6,7 @@ Delayed Instant Weather est une application web se basant sur deux API et permet
 
 - Entrez le code postal de la ville qui vous intéresse
 - Choisissez la ville dans le menu déroulant
+- Choissisez le nombre de jour de prévisions à afficher
 - Choisissez (ou non) les informations complémentaires concernant la ville choisie :ballot_box_with_check:
 - Cliquez sur le bouton recherche :mag:
 - Magie ! Vous pouvez consulter la météo ! :sun_behind_rain_cloud:
