@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delayed IW</title>
+    <title>Delayed Instant Weather</title>
 
     <!-- Kit Google -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka">
@@ -14,13 +14,14 @@
 
     <!--Lien CSS-->
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="icon" href="./images/SunCloud.png">
 
 </head>
 
 <body>
     <header>
         <h1>Delayed Instant Weather</h1>
-        <img id="sunCloud" src="Images/SunCloud.png" alt="Sun and cloud" />
+        <img id="sunCloud" src="./images/SunCloud.png" alt="Sun and cloud" />
     </header>
 
     <section id="section-selection">
@@ -45,29 +46,35 @@
         </form>
 
         <label>Informations Supplémentaires :</label>
-
-        <div class="CheckboxBox">
-            <div class="CheckButton">
-                <input type="checkbox" id="latitude" class="BtnCheck" />
-                <label for="latitude">latitude <em class="fa-solid fa-arrows-left-right"></em></label>
+        <section>
+            <div id="checkboxBox">
+                <div class="CheckButton">
+                    <input type="checkbox" id="latitude" class="BtnCheck" />
+                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                    <label for="latitude">Latitude <em class="fa-solid fa-arrows-up-down"></em></label>
+                </div>
+                <div class="CheckButton">
+                    <input type="checkbox" id="longitude" class="BtnCheck" />
+                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                    <label for="longitude">Longitude <em class="fa-solid fa-arrows-left-right"></em></label>
+                </div>
+                <div class="CheckButton">
+                    <input type="checkbox" id="AccRain" class="BtnCheck" />
+                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                    <label for="AccRain">Cumul de pluie en mm <em class="fa-solid fa-droplet"></em></label>
+                </div>
+                <div class="CheckButton">
+                    <input type="checkbox" id="AvgWind" class="BtnCheck" />
+                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                    <label for="AvgWind">Vent moyen en km/h <em class="fa-solid fa-wind"></em></label>
+                </div>
+                <div class="CheckButton">
+                    <input type="checkbox" id="windDir" class="BtnCheck" />
+                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                    <label for="windDir">Direction du vent <em class="fa-solid fa-compass"></em></label>
+                </div>
             </div>
-            <div class="CheckButton">
-                <input type="checkbox" id="longitude" class="BtnCheck" />
-                <label for="longitude">longitude <em class="fa-solid fa-arrows-up-down"></em></label>
-            </div>
-            <div class="CheckButton">
-                <input type="checkbox" id="AccRain" class="BtnCheck" />
-                <label for="AccRain">Cumul de pluie en mm <em class="fa-solid fa-droplet"></em></label>
-            </div>
-            <div class="CheckButton">
-                <input type="checkbox" id="AvgWind" class="BtnCheck" />
-                <label for="AvgWind">Vent moyen en km/h <em class="fa-solid fa-wind"></em></label>
-            </div>
-            <div class="CheckButton">
-                <input type="checkbox" id="windDir" class="BtnCheck" />
-                <label for="windDir">Direction du vent <em class="fa-solid fa-compass"></em></label>
-            </div>
-        </div>
+        </section>
 
         <button id="sendForm" hidden>Rechercher <em class="fa-solid fa-magnifying-glass fa-rotate-90"></em></button>
 

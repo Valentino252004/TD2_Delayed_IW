@@ -19,20 +19,49 @@ header {
     justify-content: space-around;
 }
 
-#ZIPCode,
-#commune-select, 
-#dayRange,
-#sendForm {
-    color:white;
-}
-
 #sunCloud {
     height: 80%;
     margin-top: 0;
 }
 
+#checkboxBox {
+    display: inline-block;
+    text-align: left;
+}
+
+#sendForm {
+    margin-top: 3vh;
+}
+
 label {
     font-size: min(3vw, 25px);
+}
+
+.fakeCheck {
+    display: inline-block;
+    width: min(1.5vw, 15px);
+    aspect-ratio: 1/1;
+    border: solid #03224C 2px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: calc(min(1.5vw, 15px)*0.75);
+    overflow: auto;
+}
+
+.BtnCheck {
+    display: none;
+}
+
+.BtnCheck:hover ~ .fakeCheck{
+    background-color: #7cf;
+}
+
+.fakeCheck > em {
+    display: none;
+}
+
+.BtnCheck:checked ~ .fakeCheck > em {
+    display: initial;
 }
 
 #section-selection {
@@ -68,12 +97,7 @@ button:hover {
     cursor: pointer;
 }
 
-#moreInfos {
-    font-size: min(0vw, 20px);
-}
-
 #weather-info {
-    font-size: min(2vw, 30px);
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -82,8 +106,12 @@ button:hover {
 #card-div {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    padding-right: 1vh;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1vh;
+    padding: 1vh;
+    border: 2px solid #03224C;
+    border-radius: 12px;
 }
 
 #city-div {
@@ -93,11 +121,11 @@ button:hover {
     border-top-right-radius: 12px;
     margin-bottom: 1vh;
     padding: 0.5vh;
-    color: white;
 }
 
 #global-info {
     text-align: center;
+    align-items: center;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 50%);
@@ -119,11 +147,10 @@ button:hover {
 
 .weatherDay {
     text-align: center;
-    border: 3px solid #03224C;
+    border: 5px solid #03224C;
     margin-bottom: 2vh;
     border-radius: 15px;
-    padding-bottom: 3vh;
-    font-size: min(3vw, 25px);
+    font-size: min(2vw, 30px);
 }
 
 #day-number {
@@ -147,13 +174,23 @@ button:hover {
     justify-content: space-evenly;
 }
 
+#moreInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    padding: 1vh;
+    margin-top: 2vh;
+    background-color:#7cf;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    font-size: min(1.5vw, 25px);
+}
 
 /* gestion des médias querries */
 @media screen and (max-width: 768px) {
 
     #section-selection,
     #section-weather,
-    #moreInfos,
     header {
         margin: 2vh 2%;
     }
