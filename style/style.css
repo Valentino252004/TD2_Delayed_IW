@@ -11,11 +11,19 @@ header {
     height: 25vh;
     border-radius: 15px;
     background-color: #2B92F9;
+    color:white;
     font-size: min(2vw, 25px);
     margin-bottom: 3vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+#ZIPCode,
+#commune-select, 
+#dayRange,
+#sendForm {
+    color:white;
 }
 
 #sunCloud {
