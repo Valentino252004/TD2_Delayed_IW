@@ -35,14 +35,12 @@ label {
     padding: 3vh 0;
 }
 
-.commune-form > div {
+.commune-form>div {
     margin-bottom: 3vh;
 }
 
 .section-card {
-    border: 5px solid #03224C;
     margin: 1% 20%;
-    border-radius: 15px;
     font-size: min(3vw, 25px);
 }
 
@@ -62,6 +60,9 @@ button:hover {
     cursor: pointer;
 }
 
+#moreInfos {
+    font-size: min(0vw, 20px);
+}
 
 #weather-info {
     font-size: min(2vw, 30px);
@@ -80,32 +81,71 @@ button:hover {
 #city-div {
     text-align: center;
     background-color: #2B92F9;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    margin-bottom: 1vh;
+    padding: 0.5vh;
+    color: white;
 }
 
 #global-info {
     text-align: center;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2,50%);
+    grid-template-columns: repeat(2, 50%);
 }
 
 #image-weather {
 
-    height: 15h;
+    height: 15vh;
     width: 15vh;
 }
 
-#span-weather {
-
+#weatherResponse {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1vh;
+    margin: 3vh;
 }
+
+.weatherDay {
+    text-align: center;
+    border: 3px solid #03224C;
+    margin-bottom: 2vh;
+    border-radius: 15px;
+    padding-bottom: 3vh;
+    font-size: min(3vw, 25px);
+}
+
+#day-number {
+    display: flex;
+    justify-content: center;
+    gap: 1vh;
+    align-items: center;
+}
+
+#dayRange {
+    width: 5vh;
+}
+
+#latLong {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#wind {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 
 /* gestion des médias querries */
 @media screen and (max-width: 768px) {
 
     #section-selection,
     #section-weather,
+    #moreInfos,
     header {
         margin: 2vh 2%;
     }
@@ -130,31 +170,4 @@ button:hover {
         align-items: center;
         flex-direction: column;
     }
-}
-
-#weatherResponse {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1vh;
-    margin: 3vh;
-}
-
-.weatherDay {
-    text-align: center;
-    border: 3px solid #03224C;
-    border-radius: 15px;
-    padding: 3vh;
-    font-size: min(3vw, 25px);
-}
-
-#day-number {
-    display: flex;
-    justify-content: center;
-    gap: 1vh;
-    align-items: center;
-}
-
-#dayRange {
-    width: 5vh;
 }

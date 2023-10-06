@@ -76,8 +76,8 @@ const CHECKBOX_WINDDIR = document.getElementById('windDir');
 const WEATHER_RESPONSE = document.getElementById("section-weather");
 let apiWeather = null;
 
-[].forEach.call(document.getElementsByClassName("CheckButton"), function(el) {
-    el.addEventListener("change", function() {
+[].forEach.call(document.getElementsByClassName("CheckButton"), function (el) {
+    el.addEventListener("change", function () {
         if (apiWeather != null) {
             displayWeather(apiWeather, numberDay);
         }
@@ -97,7 +97,7 @@ function displayWeather(apiWeather, count) {
         let hasRain = CHECKBOX_RAIN.checked;
         let hasWindSpeed = CHECKBOX_WINDSPEED.checked;
         let hasWindDir = CHECKBOX_WINDDIR.checked;
-        
+
 
         let winddir = apiWeather["forecast"][day]["dirwind10m"];
         let dirtext = "";
@@ -120,59 +120,73 @@ function displayWeather(apiWeather, count) {
         }
         let weather = apiWeather["forecast"][day]["weather"];
         let weatherText = "";
-        let imgSrc="";
-        let imgAlt="";
+        let imgSrc = "";
+        let imgAlt = "";
         weather_card.className = "section-card";
-      
-        DIV_WEATHER.innerHTML = `<div id="city-div"><p>Météo pour ${apiWeather["city"]["name"]}: </p></div>`;
-        
+
+        let theDate = new Date(Date.parse(apiWeather["forecast"][day]["datetime"]));
+
+        DIV_WEATHER.innerHTML = `<div id="city-div"><p>Météo pour ${apiWeather["city"]["name"]}</p></div>
+        <p>${theDate.toLocaleString("fr-FR", { weekday: 'long', day: "numeric", month: "long" })}</p>`;
+
         if (weather == 0) {
             weatherText = "Ensoleillé";
             imgSrc = "./Images/sun_weather_icon.png";
-            imgAlt = "Ensoleillé_icon.png";
+            imgAlt = "Ensolleillé";
         } else if (weather == 1) {
             weatherText = "Un peu nuageux";
             imgSrc = "./Images/bit_cloudy_weather_icon.png";
-            imgAlt = "un_peu_nuageux_icon.png";
+            imgAlt = "un peu nuageux";
         } else if (weather < 10) {
             weatherText = "Nuageux";
             imgSrc = "./Images/cloudy_weather_icon.png";
-            imgAlt = "nuageux_icon.png";
+            imgAlt = "Nuageux";
         } else if (weather >= 100 && weather < 200) {
             weatherText = "Orageux";
             imgSrc = "./Images/stormy_weather_icon.png";
-            imgAlt = "orageux_icon.png";
+            imgAlt = "Orageux";
         } else {
             weatherText = "Pluvieux";
             imgSrc = "./Images/rainy_weather_icon.png";
-            imgAlt = "pluvieux_icon.png";
+            imgAlt = "Pluvieux";
         }
 
-        let theDate = new Date(Date.parse(apiWeather["forecast"][day]["datetime"]));
-        
+
         DIV_WEATHER.innerHTML += `<div id="weather-info">
         <div id="card-div"><img id="image-weather" src= "${imgSrc}" alt= "${imgAlt}"/><p>${weatherText}</p></div>
-        <div id="global-info"><p>min : ${apiWeather["forecast"][day]["tmin"]}°C </p><p>max : ${apiWeather["forecast"][day]["tmax"]}°C  </p>
-        <p>Probabilité de pluie: ${apiWeather["forecast"][day]["probarain"]} %  </p><p>Heures d'ensoleillement: ${apiWeather["forecast"][day]["sun_hours"]}h  </p></div>
+        <div id="global-info"><p>min : ${apiWeather["forecast"][day]["tmin"]}°C</p><p>max : ${apiWeather["forecast"][day]["tmax"]}°C</p>
+        <p>Probabilité de pluie: ${apiWeather["forecast"][day]["probarain"]} %</p><p>Heures d'ensoleillement: ${apiWeather["forecast"][day]["sun_hours"]}h</p></div>
         </div>`;
-      
-        DIV_WEATHER.innerHTML += `<p>${theDate.toLocaleString("fr-FR", {weekday: 'long', day:"numeric", month:"long"})}</p>`;
-        
-        if (hasLatitude) {
-            DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`
-        }
-        if (hasLongitude) {
-            DIV_WEATHER.innerHTML += `<p>Longitude: ${apiWeather["city"]["longitude"]} </p>`
+
+
+        let moreInfo = ""
+
+        if (hasLatitude && hasLongitude) {
+            moreInfo += `<div id="latLong"><p>Latitude: ${apiWeather["city"]["latitude"]}°</p><p>Longitude: ${apiWeather["city"]["longitude"]}°</p></div>`
+        } else {
+            if (hasLatitude) {
+                moreInfo += `<div id="latLong"><p>Latitude: ${apiWeather["city"]["latitude"]}°</p></div>`
+            }
+            if (hasLongitude) {
+                moreInfo += `<div id="latLong"><p>Longitude: ${apiWeather["city"]["longitude"]}°</p></div>`
+            }
         }
         if (hasRain) {
-            DIV_WEATHER.innerHTML += `<p>Cumul de pluie : ${apiWeather["forecast"][day]["rr10"]}mm  </p>`
+            moreInfo += `<p>Cumul de pluie : ${apiWeather["forecast"][day]["rr10"]}mm  </p>`
         }
-        if (hasWindSpeed) {
-            DIV_WEATHER.innerHTML += `<p>Vitesse moyenne du vent : ${apiWeather["forecast"][day]["wind10m"]}km/h  </p>`
+        if (hasWindSpeed && hasWindDir) {
+            moreInfo += `<div id="wind"><p>Vitesse moyenne du vent : ${apiWeather["forecast"][day]["wind10m"]}km/h</p><p>Direction du vent: ${winddir}° (${dirtext})</p></div>`
         }
-        if (hasWindDir) {
-            DIV_WEATHER.innerHTML += `<p>Direction du vent: ${winddir}° (${dirtext})  </p>`
+        else {
+            if (hasWindSpeed) {
+                moreInfo += `<div id="wind"><p>Vitesse moyenne du vent : ${apiWeather["forecast"][day]["wind10m"]}km/h</p>`
+            }
+            if (hasWindDir) {
+                moreInfo += `<div id="wind"><p>Direction du vent: ${winddir}° (${dirtext})</p></div>`
+            }
         }
+
+        DIV_WEATHER.innerHTML += `<div id ="moreInfo">${moreInfo}</div>`
 
         WEATHER_RESPONSE.appendChild(DIV_WEATHER);
     }
@@ -181,7 +195,8 @@ function displayWeather(apiWeather, count) {
 document.getElementById("sendForm").addEventListener("click", (e) => {
     let codeInsee = dropDownMunicipality.options[dropDownMunicipality.selectedIndex].value.toString();
     let req = `https://api.meteo-concept.com/api/forecast/daily?token=${token}&insee=${codeInsee}`;
-    
+    DAY_RANGE.value = numberDay;
+
     fetch(req)
         .then(response => {
             if (!response.ok) {
@@ -200,11 +215,15 @@ document.getElementById("sendForm").addEventListener("click", (e) => {
 
 const DAY_RANGE = document.getElementById("dayRange");
 
-DAY_RANGE.addEventListener("input", function() {
-    const dayRegEx = new RegExp('^[1-7]$', 'gm');
+DAY_RANGE.addEventListener("input", function () {
+    const dayRegEx = new RegExp('^[1-7]?$', 'gm');
     if (!dayRegEx.test(DAY_RANGE.value)) {
         DAY_RANGE.value = numberDay;
     } else {
         numberDay = DAY_RANGE.value;
+        if (numberDay == "") {
+            numberDay = 1;
+        }
     }
+    console.log(numberDay);
 });

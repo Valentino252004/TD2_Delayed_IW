@@ -24,7 +24,7 @@
     </header>
 
     <section id="section-selection">
-        <form action="" method="get" class="commune-form">
+        <form method="get" class="commune-form">
             <div class="commune-choice">
                 <label for="ZIPCode">Entrez votre code postal : </label>
                 <input id="ZIPCode">
@@ -36,10 +36,11 @@
 
                 </select>
             </div>
-            
+
             <div id="day-number">
-                <label for="dayRange">Nombre de jours de prévision <em class="fa-solid fa-calendar-days"></em> : </label>
-                <input id="dayRange" type="number" min="1" max="7" step="1" value="1"/>
+                <label for="dayRange">Nombre de jours de prévision (1-7) <em class="fa-solid fa-calendar-days"></em> :
+                </label>
+                <input id="dayRange" type="number" min="1" max="7" step="1" value="1" />
             </div>
         </form>
 
@@ -72,8 +73,7 @@
 
     </section>
 
-    <section id="section-weather">
-    </section>
+    <section id="section-weather"></section>
 
     <script src="./script/script.js"></script>
 </body>
