@@ -61,12 +61,27 @@ function apiMunicipality() {
             }
         })
         .catch(error => {
-            ('There was a problem while accessong the data', error);
+            ('There was a problem while accessing the data', error);
         });
 }
 
+const DAY_RANGE = document.getElementById("dayRange");
 
-// Implementation of fixed code weather request
+DAY_RANGE.addEventListener("input", function () {
+    const dayRegEx = new RegExp('^[1-7]?$', 'gm');
+    if (!dayRegEx.test(DAY_RANGE.value)) {
+        DAY_RANGE.value = numberDay;
+    } else {
+        numberDay = DAY_RANGE.value;
+        if (numberDay == "") {
+            numberDay = 1;
+        } else {
+            if (apiWeather != null) {
+                displayWeather(apiWeather, numberDay);
+            }
+        }
+    }
+});
 
 const CHECKBOX_LATITUDE = document.getElementById('latitude');
 const CHECKBOX_LONGITUDE = document.getElementById('longitude');
@@ -83,9 +98,6 @@ let apiWeather = null;
         }
     });
 });
-
-const token = "e9573bea167f06b5ca0805e4ef64e697562f702d022c084058058f958b11d272"
-
 
 function displayWeather(apiWeather, count) {
     WEATHER_RESPONSE.innerHTML = "";
@@ -126,8 +138,8 @@ function displayWeather(apiWeather, count) {
 
         let theDate = new Date(Date.parse(apiWeather["forecast"][day]["datetime"]));
 
-        DIV_WEATHER.innerHTML = `<div id="city-div"><p>Météo pour ${apiWeather["city"]["name"]}</p></div>
-        <p>${theDate.toLocaleString("fr-FR", { weekday: 'long', day: "numeric", month: "long" })}</p>`;
+        DIV_WEATHER.innerHTML = `<div id="city-div"><p>Météo pour ${apiWeather["city"]["name"]}</p>
+        <p>${theDate.toLocaleString("fr-FR", { weekday: 'long', day: "numeric", month: "long" })}</p></div>`;
 
         if (weather == 0) {
             weatherText = "Ensoleillé";
@@ -154,45 +166,50 @@ function displayWeather(apiWeather, count) {
 
         DIV_WEATHER.innerHTML += `<div id="weather-info">
         <div id="card-div"><img id="image-weather" src= "${imgSrc}" alt= "${imgAlt}"/><p>${weatherText}</p></div>
-        <div id="global-info"><p>min : ${apiWeather["forecast"][day]["tmin"]}°C</p><p>max : ${apiWeather["forecast"][day]["tmax"]}°C</p>
-        <p>Probabilité de pluie: ${apiWeather["forecast"][day]["probarain"]} %</p><p>Heures d'ensoleillement: ${apiWeather["forecast"][day]["sun_hours"]}h</p></div>
+        <div id="global-info"><p>Min : ${apiWeather["forecast"][day]["tmin"]}°C</p><p>Max : ${apiWeather["forecast"][day]["tmax"]}°C</p>
+        <p>Probabilité de pluie : ${apiWeather["forecast"][day]["probarain"]} %</p><p>Heures de soleil : ${apiWeather["forecast"][day]["sun_hours"]}h</p></div>
         </div>`;
 
 
         let moreInfo = ""
 
         if (hasLatitude && hasLongitude) {
-            moreInfo += `<div id="latLong"><p>Latitude: ${apiWeather["city"]["latitude"]}°</p><p>Longitude: ${apiWeather["city"]["longitude"]}°</p></div>`
+            moreInfo += `<div id="latLong"><p>Latitude : ${apiWeather["city"]["latitude"]}°</p><p>Longitude : ${apiWeather["city"]["longitude"]}°</p></div>`
         } else {
             if (hasLatitude) {
-                moreInfo += `<div id="latLong"><p>Latitude: ${apiWeather["city"]["latitude"]}°</p></div>`
+                moreInfo += `<div id="latLong"><p>Latitude : ${apiWeather["city"]["latitude"]}°</p></div>`
             }
             if (hasLongitude) {
-                moreInfo += `<div id="latLong"><p>Longitude: ${apiWeather["city"]["longitude"]}°</p></div>`
+                moreInfo += `<div id="latLong"><p>Longitude : ${apiWeather["city"]["longitude"]}°</p></div>`
             }
         }
         if (hasRain) {
             moreInfo += `<p>Cumul de pluie : ${apiWeather["forecast"][day]["rr10"]}mm  </p>`
         }
         if (hasWindSpeed && hasWindDir) {
-            moreInfo += `<div id="wind"><p>Vitesse moyenne du vent : ${apiWeather["forecast"][day]["wind10m"]}km/h</p><p>Direction du vent: ${winddir}° (${dirtext})</p></div>`
+            moreInfo += `<div id="wind"><p>Vitesse moyenne du vent : ${apiWeather["forecast"][day]["wind10m"]}km/h</p><p>Direction du vent : ${winddir}° (${dirtext})</p></div>`
         }
         else {
             if (hasWindSpeed) {
                 moreInfo += `<div id="wind"><p>Vitesse moyenne du vent : ${apiWeather["forecast"][day]["wind10m"]}km/h</p>`
             }
             if (hasWindDir) {
-                moreInfo += `<div id="wind"><p>Direction du vent: ${winddir}° (${dirtext})</p></div>`
+                moreInfo += `<div id="wind"><p>Direction du vent : ${winddir}° (${dirtext})</p></div>`
             }
         }
-
-        DIV_WEATHER.innerHTML += `<div id ="moreInfo">${moreInfo}</div>`
+        if (moreInfo != "") {
+            DIV_WEATHER.innerHTML += `<div id ="moreInfo">${moreInfo}</div>`
+            DIV_WEATHER.style.paddingBottom = "0";
+        } else {
+            DIV_WEATHER.style.paddingBottom = "3vh";
+        }
 
         WEATHER_RESPONSE.appendChild(DIV_WEATHER);
     }
 }
 
 document.getElementById("sendForm").addEventListener("click", (e) => {
+    const token = "e9573bea167f06b5ca0805e4ef64e697562f702d022c084058058f958b11d272"    
     let codeInsee = dropDownMunicipality.options[dropDownMunicipality.selectedIndex].value.toString();
     let req = `https://api.meteo-concept.com/api/forecast/daily?token=${token}&insee=${codeInsee}`;
     DAY_RANGE.value = numberDay;
@@ -211,19 +228,4 @@ document.getElementById("sendForm").addEventListener("click", (e) => {
         .catch(error => {
             document.getElementById("weatherResponse").innerHTML = "Not working";
         });
-});
-
-const DAY_RANGE = document.getElementById("dayRange");
-
-DAY_RANGE.addEventListener("input", function () {
-    const dayRegEx = new RegExp('^[1-7]?$', 'gm');
-    if (!dayRegEx.test(DAY_RANGE.value)) {
-        DAY_RANGE.value = numberDay;
-    } else {
-        numberDay = DAY_RANGE.value;
-        if (numberDay == "") {
-            numberDay = 1;
-        }
-    }
-    console.log(numberDay);
 });
