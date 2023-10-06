@@ -73,7 +73,7 @@ const CHECKBOX_LONGITUDE = document.getElementById('longitude');
 const CHECKBOX_RAIN = document.getElementById('AccRain');
 const CHECKBOX_WINDSPEED = document.getElementById('AvgWind');
 const CHECKBOX_WINDDIR = document.getElementById('windDir');
-const WEATHER_RESPONSE = document.getElementById("weatherResponse");
+const WEATHER_RESPONSE = document.getElementById("section-weather");
 let apiWeather = null;
 
 [].forEach.call(document.getElementsByClassName("CheckButton"), function(el) {
@@ -97,6 +97,7 @@ function displayWeather(apiWeather, count) {
         let hasRain = CHECKBOX_RAIN.checked;
         let hasWindSpeed = CHECKBOX_WINDSPEED.checked;
         let hasWindDir = CHECKBOX_WINDDIR.checked;
+        
 
         let winddir = apiWeather["forecast"][day]["dirwind10m"];
         let dirtext = "";
@@ -124,41 +125,38 @@ function displayWeather(apiWeather, count) {
         weather_card.className = "section-card";
       
         DIV_WEATHER.innerHTML = `<div id="city-div"><p>Météo pour ${apiWeather["city"]["name"]}: </p></div>`;
-
+        
         if (weather == 0) {
             weatherText = "Ensoleillé";
-            imgSrc = "../Images/sun_weather_icon.png";
+            imgSrc = "./Images/sun_weather_icon.png";
             imgAlt = "Ensoleillé_icon.png";
         } else if (weather == 1) {
             weatherText = "Un peu nuageux";
-            imgSrc = "../Images/bit_cloudy_weather_icon.png";
+            imgSrc = "./Images/bit_cloudy_weather_icon.png";
             imgAlt = "un_peu_nuageux_icon.png";
         } else if (weather < 10) {
             weatherText = "Nuageux";
-            imgSrc = "../Images/cloudy_weather_icon.png";
+            imgSrc = "./Images/cloudy_weather_icon.png";
             imgAlt = "nuageux_icon.png";
         } else if (weather >= 100 && weather < 200) {
             weatherText = "Orageux";
-            imgSrc = "../Images/stormy_weather_icon.png";
+            imgSrc = "./Images/stormy_weather_icon.png";
             imgAlt = "orageux_icon.png";
         } else {
             weatherText = "Pluvieux";
-            imgSrc = "../Images/rainy_weather_icon.png";
+            imgSrc = "./Images/rainy_weather_icon.png";
             imgAlt = "pluvieux_icon.png";
         }
 
         let theDate = new Date(Date.parse(apiWeather["forecast"][day]["datetime"]));
-  
+        
         DIV_WEATHER.innerHTML += `<div id="weather-info">
-        <div id="card-div"><img id="image-weather"/><p>${weatherText}</p></div>
-        <div id="global-info"><p>min : ${apiWeather["forecast"]["tmin"]}°C </p><p>max : ${apiWeather["forecast"]["tmax"]}°C  </p>
-        <p>Probabilité de pluie: ${apiWeather["forecast"]["probarain"]} %  </p><p>Heures d'ensoleillement: ${apiWeather["forecast"]["sun_hours"]}h  </p></div>
+        <div id="card-div"><img id="image-weather" src= "${imgSrc}" alt= "${imgAlt}"/><p>${weatherText}</p></div>
+        <div id="global-info"><p>min : ${apiWeather["forecast"][day]["tmin"]}°C </p><p>max : ${apiWeather["forecast"][day]["tmax"]}°C  </p>
+        <p>Probabilité de pluie: ${apiWeather["forecast"][day]["probarain"]} %  </p><p>Heures d'ensoleillement: ${apiWeather["forecast"][day]["sun_hours"]}h  </p></div>
         </div>`;
       
-        DIV_WEATHER.innerHTML = `<p>${theDate.toLocaleString("fr-FR", {weekday: 'long', day:"numeric", month:"long"})}</p>`;
-      
-        document.getElementById("image-weather").src=imgSrc;
-        document.getElementById("image-weather").alt=imgAlt;
+        DIV_WEATHER.innerHTML += `<p>${theDate.toLocaleString("fr-FR", {weekday: 'long', day:"numeric", month:"long"})}</p>`;
         
         if (hasLatitude) {
             DIV_WEATHER.innerHTML += `<p>Latitude: ${apiWeather["city"]["latitude"]}° </p>`
@@ -175,6 +173,7 @@ function displayWeather(apiWeather, count) {
         if (hasWindDir) {
             DIV_WEATHER.innerHTML += `<p>Direction du vent: ${winddir}° (${dirtext})  </p>`
         }
+
         WEATHER_RESPONSE.appendChild(DIV_WEATHER);
     }
 }
@@ -182,7 +181,7 @@ function displayWeather(apiWeather, count) {
 document.getElementById("sendForm").addEventListener("click", (e) => {
     let codeInsee = dropDownMunicipality.options[dropDownMunicipality.selectedIndex].value.toString();
     let req = `https://api.meteo-concept.com/api/forecast/daily?token=${token}&insee=${codeInsee}`;
-
+    
     fetch(req)
         .then(response => {
             if (!response.ok) {
