@@ -1,3 +1,5 @@
+//variable decalrations
+
 let numberDay = 1;
 let urlAPI = 'https://geo.api.gouv.fr/communes?codePostal='
 let zipcode;
@@ -7,6 +9,14 @@ const regex = new RegExp('^\\d{5}$', 'gm');
 let dropDownMunicipality = document.getElementById("commune-select");
 
 let weather_card = document.getElementById("section-weather");
+
+const CHECKBOX_LATITUDE = document.getElementById('latitude');
+const CHECKBOX_LONGITUDE = document.getElementById('longitude');
+const CHECKBOX_RAIN = document.getElementById('AccRain');
+const CHECKBOX_WINDSPEED = document.getElementById('AvgWind');
+const CHECKBOX_WINDDIR = document.getElementById('windDir');
+const WEATHER_RESPONSE = document.getElementById("section-weather");
+let apiWeather = null;
 
 //Listener on the input for the zip-code
 zipcodeInput.addEventListener("input", (e) => {
@@ -18,13 +28,14 @@ zipcodeInput.addEventListener("input", (e) => {
     }
 })
 
+// hide or show the dropdown menu for the city
 function ShowOrHideMunicipality(show) {
     dropDownMunicipality.hidden = show;
     document.getElementById("commune-label").hidden = show;
     document.getElementById("sendForm").hidden = show;
 }
 
-// Add all the municipality with the same zip-code
+// Add all the municipality with the same zip-code in the dropdown menu
 function addSelectElement(element) {
     dropDownMunicipality.innerHTML = ''
     for (i = 0; i < element.length; i++) {
@@ -65,6 +76,8 @@ function apiMunicipality() {
         });
 }
 
+//handling the number of days for the forecast
+
 const DAY_RANGE = document.getElementById("dayRange");
 
 DAY_RANGE.addEventListener("input", function () {
@@ -83,14 +96,6 @@ DAY_RANGE.addEventListener("input", function () {
     }
 });
 
-const CHECKBOX_LATITUDE = document.getElementById('latitude');
-const CHECKBOX_LONGITUDE = document.getElementById('longitude');
-const CHECKBOX_RAIN = document.getElementById('AccRain');
-const CHECKBOX_WINDSPEED = document.getElementById('AvgWind');
-const CHECKBOX_WINDDIR = document.getElementById('windDir');
-const WEATHER_RESPONSE = document.getElementById("section-weather");
-let apiWeather = null;
-
 [].forEach.call(document.getElementsByClassName("CheckButton"), function (el) {
     el.addEventListener("change", function () {
         if (apiWeather != null) {
@@ -98,6 +103,8 @@ let apiWeather = null;
         }
     });
 });
+
+//Create the weather card and fill with the forecast
 
 function displayWeather(apiWeather, count) {
     WEATHER_RESPONSE.innerHTML = "";
@@ -144,23 +151,23 @@ function displayWeather(apiWeather, count) {
         if (weather == 0) {
             weatherText = "Ensoleillé";
             imgSrc = "./Images/sun_weather_icon.png";
-            imgAlt = "Ensolleillé";
+            imgAlt = "Journée ensoléillé";
         } else if (weather == 1) {
             weatherText = "Un peu nuageux";
             imgSrc = "./Images/bit_cloudy_weather_icon.png";
-            imgAlt = "un peu nuageux";
+            imgAlt = "Léger nuages";
         } else if (weather < 10) {
             weatherText = "Nuageux";
             imgSrc = "./Images/cloudy_weather_icon.png";
-            imgAlt = "Nuageux";
+            imgAlt = "Ciel nuageux";
         } else if (weather >= 100 && weather < 200) {
             weatherText = "Orageux";
             imgSrc = "./Images/stormy_weather_icon.png";
-            imgAlt = "Orageux";
+            imgAlt = "Temps d'orage";
         } else {
             weatherText = "Pluvieux";
             imgSrc = "./Images/rainy_weather_icon.png";
-            imgAlt = "Pluvieux";
+            imgAlt = "Nuage de pluie";
         }
 
 
@@ -208,8 +215,10 @@ function displayWeather(apiWeather, count) {
     }
 }
 
+//Handler of the meteo-concept API
+
 document.getElementById("sendForm").addEventListener("click", (e) => {
-    const token = "e9573bea167f06b5ca0805e4ef64e697562f702d022c084058058f958b11d272"    
+    const token = "e9573bea167f06b5ca0805e4ef64e697562f702d022c084058058f958b11d272"
     let codeInsee = dropDownMunicipality.options[dropDownMunicipality.selectedIndex].value.toString();
     let req = `https://api.meteo-concept.com/api/forecast/daily?token=${token}&insee=${codeInsee}`;
     DAY_RANGE.value = numberDay;
