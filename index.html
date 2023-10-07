@@ -21,7 +21,7 @@
 <body>
     <header>
         <h1>Delayed Instant Weather</h1>
-        <img id="sunCloud" src="./Images/SunCloud.png" alt="Sun and cloud" />
+        <img id="sunCloud" src="./Images/SunCloud.png" alt="Sun and cloud" >
     </header>
 
     <!--Selection card-->
@@ -42,7 +42,7 @@
             <div id="day-number">
                 <label for="dayRange">Nombre de jours de prévision (1-7) <em class="fa-solid fa-calendar-days"></em> :
                 </label>
-                <input id="dayRange" type="number" min="1" max="7" step="1" value="1" />
+                <input id="dayRange" type="number" min="1" max="7" step="1" value="1" >
             </div>
         </form>
 
@@ -50,29 +50,39 @@
         <section>
             <div id="checkboxBox">
                 <div class="CheckButton">
-                    <input type="checkbox" id="latitude" class="BtnCheck" />
-                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
-                    <label for="latitude">Latitude <em class="fa-solid fa-arrows-up-down"></em></label>
+                    <label for="latitude">
+                        <input type="checkbox" id="latitude" class="BtnCheck" >
+                        <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                        Latitude <em class="fa-solid fa-arrows-up-down"></em>   
+                    </label>
                 </div>
                 <div class="CheckButton">
-                    <input type="checkbox" id="longitude" class="BtnCheck" />
-                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
-                    <label for="longitude">Longitude <em class="fa-solid fa-arrows-left-right"></em></label>
+                    <label for="longitude">
+                        <input type="checkbox" id="longitude" class="BtnCheck" >
+                        <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                        Longitude <em class="fa-solid fa-arrows-left-right"></em>
+                    </label>
                 </div>
                 <div class="CheckButton">
-                    <input type="checkbox" id="AccRain" class="BtnCheck" />
-                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
-                    <label for="AccRain">Cumul de pluie en mm <em class="fa-solid fa-droplet"></em></label>
+                    <label for="AccRain">
+                        <input type="checkbox" id="AccRain" class="BtnCheck" >
+                        <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                        Cumul de pluie en mm <em class="fa-solid fa-droplet"></em>
+                    </label>
                 </div>
                 <div class="CheckButton">
-                    <input type="checkbox" id="AvgWind" class="BtnCheck" />
-                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
-                    <label for="AvgWind">Vent moyen en km/h <em class="fa-solid fa-wind"></em></label>
+                    <label for="AvgWind">
+                        <input type="checkbox" id="AvgWind" class="BtnCheck" >
+                        <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                        Vent moyen en km/h <em class="fa-solid fa-wind"></em>
+                    </label>
                 </div>
                 <div class="CheckButton">
-                    <input type="checkbox" id="windDir" class="BtnCheck" />
-                    <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
-                    <label for="windDir">Direction du vent <em class="fa-solid fa-compass"></em></label>
+                    <label for="windDir">
+                        <input type="checkbox" id="windDir" class="BtnCheck" >
+                        <span class="fakeCheck"><em class="fa-solid fa-check"></em></span>
+                        Direction du vent <em class="fa-solid fa-compass"></em>
+                    </label>
                 </div>
             </div>
         </section>
