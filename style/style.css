@@ -45,6 +45,7 @@ label {
     border-radius: 5px;
     text-align: center;
     font-size: calc(min(1.5vw, 15px)*0.75);
+    color: white;
     overflow: auto;
 }
 
@@ -52,16 +53,12 @@ label {
     display: none;
 }
 
-.BtnCheck:hover ~ .fakeCheck{
+.BtnCheck:hover ~ .fakeCheck {
     background-color: #7cf;
 }
 
-.fakeCheck > em {
-    display: none;
-}
-
-.BtnCheck:checked ~ .fakeCheck > em {
-    display: initial;
+.BtnCheck:checked ~ .fakeCheck {
+    background-color: #03224C;
 }
 
 #section-selection {
