@@ -180,7 +180,7 @@ button:hover {
     background-color:#7cf;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    font-size: min(1.5vw, 25px);
+    font-size: min(1.8.vw, 25px);
 }
 
 /* gestion des médias querries */
@@ -199,6 +199,26 @@ button:hover {
     #image-weather {
         height: 10vh;
         width: 10vh;
+    }
+
+    #moreInfo {
+        font-size: min(2.5vw, 25px);
+    }
+
+    #global-info{
+        font-size: min(2.8vw, 25px);
+    }
+
+    #city-div {
+        font-size: min(3vw, 25px);
+    }
+
+    #card-div {
+        font-size: min(2.5vw, 25px);
+    }
+
+    #section-selection{
+        font-size: min(3vw, 25px);
     }
 
     header {
