@@ -4,6 +4,11 @@
     font-family: "Fredoka";
 }
 
+label {
+    font-size: min(3vw, 25px);
+}
+
+/*Partie du header*/
 header {
     border: 5px solid #22427C;
     margin: 0 8%;
@@ -11,7 +16,7 @@ header {
     height: 25vh;
     border-radius: 15px;
     background-color: #2B92F9;
-    color:white;
+    color: white;
     font-size: min(2vw, 25px);
     margin-bottom: 3vh;
     display: flex;
@@ -24,42 +29,7 @@ header {
     margin-top: 0;
 }
 
-#checkboxBox {
-    display: inline-block;
-    text-align: left;
-}
-
-#sendForm {
-    margin-top: 3vh;
-}
-
-label {
-    font-size: min(3vw, 25px);
-}
-
-.fakeCheck {
-    display: inline-block;
-    width: min(1.5vw, 15px);
-    aspect-ratio: 1/1;
-    border: solid #03224C 2px;
-    border-radius: 5px;
-    text-align: center;
-    font-size: calc(min(1.5vw, 15px)*0.75);
-    color: white;
-    overflow: auto;
-}
-
-.BtnCheck {
-    display: none;
-}
-
-.BtnCheck:hover ~ .fakeCheck {
-    background-color: #7cf;
-}
-
-.BtnCheck:checked ~ .fakeCheck {
-    background-color: #03224C;
-}
+/*Partie Selection*/
 
 #section-selection {
     text-align: center;
@@ -73,9 +43,45 @@ label {
     margin-bottom: 3vh;
 }
 
-.section-card {
-    margin: 1% 20%;
-    font-size: min(3vw, 25px);
+#day-number {
+    display: flex;
+    justify-content: center;
+    gap: 1vh;
+    align-items: center;
+}
+
+#dayRange {
+    width: 5vh;
+}
+
+/*Checkbox part*/
+#checkboxBox {
+    display: inline-block;
+    text-align: left;
+}
+
+.fakeCheck {
+    display: inline-block;
+    width: min(1.5vw, 15px);
+    aspect-ratio: 1/1;
+    border: solid #03224C 2px;
+    border-radius: 3px;
+    text-align: center;
+    font-size: calc(min(1.5vw, 15px)*0.75);
+    color: white;
+    overflow: auto;
+}
+
+.BtnCheck {
+    display: none;
+}
+
+.BtnCheck:hover~.fakeCheck {
+    background-color: #7cf;
+}
+
+.BtnCheck:checked~.fakeCheck {
+    background-color: #03224C;
 }
 
 button,
@@ -94,6 +100,34 @@ button:hover {
     cursor: pointer;
 }
 
+#sendForm {
+    margin-top: 3vh;
+}
+
+#weatherResponse {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1vh;
+    margin: 3vh;
+}
+
+/*Weather card*/
+
+.section-card {
+    margin: 1% 20%;
+    font-size: min(3vw, 25px);
+}
+
+.weatherDay {
+    text-align: center;
+    border: 5px solid #03224C;
+    margin-bottom: 2vh;
+    border-radius: 15px;
+    font-size: min(2vw, 30px);
+}
+
+/*Part of weather info*/
 #weather-info {
     display: flex;
     flex-direction: row-reverse;
@@ -111,6 +145,14 @@ button:hover {
     border-radius: 12px;
 }
 
+#global-info {
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+}
+
 #city-div {
     text-align: center;
     background-color: #2B92F9;
@@ -120,45 +162,23 @@ button:hover {
     padding: 0.5vh;
 }
 
-#global-info {
-    text-align: center;
-    align-items: center;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-}
-
 #image-weather {
 
     height: 15vh;
     width: 15vh;
 }
 
-#weatherResponse {
+/*Weather card additional informations*/
+#moreInfo {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     gap: 1vh;
-    margin: 3vh;
-}
-
-.weatherDay {
-    text-align: center;
-    border: 5px solid #03224C;
-    margin-bottom: 2vh;
-    border-radius: 15px;
-    font-size: min(2vw, 30px);
-}
-
-#day-number {
-    display: flex;
-    justify-content: center;
-    gap: 1vh;
-    align-items: center;
-}
-
-#dayRange {
-    width: 5vh;
+    padding: 1vh;
+    margin-top: 2vh;
+    background-color: #7cf;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    font-size: min(1.8vw, 25px);
 }
 
 #latLong {
@@ -169,18 +189,6 @@ button:hover {
 #wind {
     display: flex;
     justify-content: space-evenly;
-}
-
-#moreInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 1vh;
-    padding: 1vh;
-    margin-top: 2vh;
-    background-color:#7cf;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    font-size: min(1.5vw, 25px);
 }
 
 /* gestion des médias querries */
@@ -199,6 +207,26 @@ button:hover {
     #image-weather {
         height: 10vh;
         width: 10vh;
+    }
+
+    #moreInfo {
+        font-size: min(2.5vw, 25px);
+    }
+
+    #global-info {
+        font-size: min(2.8vw, 25px);
+    }
+
+    #city-div {
+        font-size: min(3vw, 25px);
+    }
+
+    #card-div {
+        font-size: min(2.5vw, 25px);
+    }
+
+    #section-selection {
+        font-size: min(3vw, 25px);
     }
 
     header {
